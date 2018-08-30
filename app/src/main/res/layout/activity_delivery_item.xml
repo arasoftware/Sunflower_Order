@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/icon_button"
+    android:background="@drawable/background"
+    tools:context=".DeliveryItemActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_delivery_product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_spacing"
+            android:textColor="@color/colorPrimaryDark"
+            android:padding="7dp"
+            android:background="@color/deep_purple"
+            android:text="@string/product_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_delivery_product_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_spacing"
+            android:background="@color/deep_purple"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_weight="0.25"
+            android:padding="7dp"
+            android:text="@string/product_code"
+            app:layout_constraintTop_toBottomOf="@+id/tv_delivery_product_name" />
+
+        <LinearLayout
+            android:id="@+id/layout_avail_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_spacing"
+            android:padding="7dp"
+            android:background="@color/deep_purple"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_delivery_product_code">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@string/ordered_quantity" />
+
+            <TextView
+
+                android:id="@+id/tv_ordered_qty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:gravity="right"
+                android:paddingRight="@dimen/item_spacing"
+                android:text="1" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edit_accepted_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_spacing"
+            android:hint="@string/accept_qty"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/deep_purple"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/layout_avail_qty" />
+
+        <EditText
+            android:id="@+id/edit_rejected_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_spacing"
+            android:textColor="@color/white"
+            android:hint="@string/rejected_quantity"
+            android:backgroundTint="@color/deep_purple"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/edit_accepted_qty" />
+
+
+        <Button
+            android:id="@+id/btn_deliver_an_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_spacing"
+            android:drawableTint="@color/white"
+            android:drawableRight="@drawable/ic_add"
+            android:text="@string/add_item"
+            app:layout_constraintTop_toBottomOf="@id/edit_rejected_qty" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

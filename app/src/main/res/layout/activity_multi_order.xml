@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".MultiOrderActivity">
+
+    <TextView
+        android:id="@+id/tv_multi_order_brandName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/list_item_padding"
+        android:layout_marginTop="@dimen/item_spacing"
+        android:background="@color/deep_purple"
+        android:clickable="true"
+        android:drawableRight="@drawable/ic_right_arrow"
+        android:drawableTint="@color/colorPrimaryDark"
+        android:gravity="fill"
+        android:padding="@dimen/list_item_padding"
+        android:text="@string/brand_name"
+        android:textColor="@color/colorPrimaryDark"
+        />
+
+    <ListView
+        android:id="@+id/list_view_products"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_multi_order_brandName"
+        android:layout_margin="@dimen/list_item_padding"
+        >
+
+    </ListView>
+
+</RelativeLayout>

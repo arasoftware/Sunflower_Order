@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:padding="5dp"
+    tools:context=".DeliveryActivity">
+    <TextView
+        android:id="@+id/tv_delivery_warehouse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/deep_purple"
+        android:clickable="true"
+        android:drawableRight="@drawable/ic_right_arrow"
+        android:drawableTint="@color/colorPrimaryDark"
+        android:gravity="center|left"
+        android:padding="5dp"
+        android:text="@string/select_a_warehouse"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/tv_delivery_customer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/deep_purple"
+        android:layout_marginTop="@dimen/item_spacing"
+        android:clickable="true"
+        android:drawableRight="@drawable/ic_right_arrow"
+        android:drawableTint="@color/colorPrimaryDark"
+        android:gravity="center|left"
+        android:padding="5dp"
+        android:text="@string/select_customer"
+        android:layout_below="@id/tv_delivery_warehouse"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <LinearLayout
+        android:id="@+id/layout_approve_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_delivery_customer"
+        android:layout_marginTop="@dimen/item_spacing"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/tv_delivery_approve_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@color/deep_purple"
+            android:drawableRight="@drawable/ic_right_arrow"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:gravity="fill"
+            android:padding="3dp"
+            android:text="@string/approval_no"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/delivery_total_qty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@color/deep_purple"
+            android:gravity="fill"
+            android:padding="4dp"
+            android:text="@string/quantity"
+            android:textColor="@color/colorPrimaryDark" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_delivery_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_approve_date"
+        android:layout_marginTop="10dp"
+        android:weightSum="2">
+
+        <LinearLayout
+            style="@style/InfoView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delivery"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/delivery_delivery_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@color/deep_purple"
+                android:clickable="true"
+                android:drawableRight="@drawable/ic_date"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:gravity="fill"
+                android:hint="@string/delivery"
+                android:padding="4dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/InfoView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_date"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/delivery_order_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@color/deep_purple"
+                android:drawableRight="@drawable/ic_date"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:gravity="fill"
+                android:hint="@string/order_date"
+                android:padding="3dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/delivery_layout_amount_submit_btn"
+        android:layout_below="@id/layout_delivery_date"
+        android:layout_marginTop="10dp"
+        android:background="@color/tran"
+        android:orientation="horizontal"
+        android:padding="@dimen/icon_button">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/delivery_item_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="7dp"
+            android:scrollbars="vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/delivery_layout_amount_submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            style="@style/InfoView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/accepted_quantities"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/delivery_accepted_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@color/deep_purple"
+
+                android:gravity="center"
+                android:hint="@string/sample_quantity"
+                android:padding="4dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/submit_delivery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/submit_delivery" />
+    </LinearLayout>
+</RelativeLayout>

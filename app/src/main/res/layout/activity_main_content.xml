@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context=".MainActivity"
+
+    >
+
+    <LinearLayout
+        android:id="@+id/layout_linear_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_sales_order"
+            android:onClick="sales_order_onClick"
+            android:padding="@dimen/icon_button"
+            android:text="@string/sales_order" />
+
+        <Button
+            android:id="@+id/btn_main_delivery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_delivery"
+            android:text="@string/delivery" />
+
+        <Button
+            android:id="@+id/btn_main_collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_collection"
+
+            android:text="@string/collection" />
+    </LinearLayout>
+</RelativeLayout>

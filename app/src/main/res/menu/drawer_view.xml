@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_sales_order"
+        android:title="@string/sales_order" />
+    <item
+        android:id="@+id/nav_delivery"
+
+        android:title="@string/delivery" />
+    <item
+        android:id="@+id/nav_collection"
+
+        android:title="@string/collection" />
+
+    <item
+        android:id="@+id/nav_logout"
+
+        android:title="@string/logout" />
+
+
+</menu>
