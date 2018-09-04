@@ -1,9 +1,11 @@
 package com.ara.sunflowerorder;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
@@ -16,8 +18,14 @@ import com.ara.sunflowerorder.utils.http.HttpCaller;
 import com.ara.sunflowerorder.utils.http.HttpRequest;
 import com.ara.sunflowerorder.utils.http.HttpResponse;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static com.ara.sunflowerorder.utils.AppConstants.BRANCH_ID_PREF;
 import static com.ara.sunflowerorder.utils.AppConstants.PASSWORD_PARAM;
+import static com.ara.sunflowerorder.utils.AppConstants.PREFERENCE_NAME;
 import static com.ara.sunflowerorder.utils.AppConstants.USER_ID_PARAM;
+import static com.ara.sunflowerorder.utils.AppConstants.USER_ID_PREF;
 import static com.ara.sunflowerorder.utils.AppConstants.fetchWarehouse;
 import static com.ara.sunflowerorder.utils.AppConstants.getUserLoginURL;
 import static com.ara.sunflowerorder.utils.AppConstants.showSnackbar;
@@ -71,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String userId = mUserIdView.getText().toString();
+        final String userId = mUserIdView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -110,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
             new HttpCaller() {
                 @Override
                 public void onResponse(HttpResponse response) {
+                    Log.e("TAG","message"+response.getMesssage());
                     progressDialog.dismiss();
 
                     if (response.getStatus() == HttpResponse.ERROR) {
@@ -122,6 +131,19 @@ public class LoginActivity extends AppCompatActivity {
                             showSnackbar(mLoginFormView, "Login Failed..");
                             progressDialog.dismiss();
                         } else {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.getMesssage());
+                                String userid = jsonObject.getString(USER_ID_PREF);
+                                String branchid = jsonObject.getString(BRANCH_ID_PREF);
+                                SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE_NAME,MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString(USER_ID_PREF,userid);
+                                editor.putString(BRANCH_ID_PREF,branchid);
+                                editor.commit();
+                            } catch (JSONException e) {
+
+                                Log.e("TAG","JSONEXECPTION : "+e);
+                            }
                             AppConstants.CurrentUser = User.fromJson(message);
                             setResult(RESULT_OK);
                             finish();

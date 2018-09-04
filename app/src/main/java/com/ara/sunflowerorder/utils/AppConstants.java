@@ -59,6 +59,9 @@ public class AppConstants {
     public static final String PREFERENCE_NAME = "Sunflower_order";
     public static final String USER_INFO_STORAGE = "UserInfo";
 
+    public static final String BANK_LIST = REST_API+"banklist";
+    public static final String USER_ID_PREF = "user_id";
+    public static final String BRANCH_ID_PREF = "user_branch_ids";
 
     public static final String CUSTOMER_NAME_PARAM = "customer_name";
     public static final String CUSTOMER_ID_PARAM = "customer_id";

@@ -1,6 +1,7 @@
 package com.ara.sunflowerorder.models;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -13,7 +14,28 @@ public class Collection {
     private int id;
     private User user;
     private Customer customer;
+    @SerializedName("payment_mode")
     private String paymentMode;
+    @SerializedName("accounts_id")
+    private int accountId;
+    private SampleData sample;
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public SampleData getSample() {
+        return sample;
+    }
+
+    public void setSample(SampleData sample) {
+        this.sample = sample;
+    }
+
     private String date;
     private List<Invoice> invoiceList;
     private double totalAmount;
