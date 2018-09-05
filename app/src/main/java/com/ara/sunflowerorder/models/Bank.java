@@ -1,8 +1,20 @@
 package com.ara.sunflowerorder.models;
 
-public class Bank {
+import java.util.ArrayList;
+
+public class Bank  {
 
     String accounts_id,accounts_name,accounts_group_id,accounts_type;
+
+    String txt;
+
+    public String getTxt() {
+        return txt;
+    }
+
+    public void setTxt(String txt) {
+        this.txt = txt;
+    }
 
     public Bank() {
 

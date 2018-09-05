@@ -11,6 +11,7 @@
         android:padding="10dp"
         android:textColor="@color/white"
         android:id="@+id/banknamesid"
+        android:hint=" BAnk NAme "
         android:text="bank Name"
         android:background="@color/deep_purple"
         android:layout_height="wrap_content" />

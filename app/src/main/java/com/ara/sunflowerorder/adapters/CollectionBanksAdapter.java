@@ -29,6 +29,23 @@ public class CollectionBanksAdapter extends ArrayAdapter<Bank>{
 
     }
 
+    @Override
+    public int getPosition(@Nullable Bank item) {
+        return super.getPosition(item);
+    }
+
+    @Override
+    public int getCount() {
+        return super.getCount();
+    }
+
+    @Nullable
+    @Override
+    public Bank getItem(int position) {
+        return super.getItem(position);
+
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -39,7 +56,6 @@ public class CollectionBanksAdapter extends ArrayAdapter<Bank>{
             row = inflater.inflate(R.layout.banknames, parent, false);
         }
         Bank item = data.get(position);
-
         if (item != null) { // Parse the data from each object and set it.
             TextView accname = (TextView) row.findViewById(R.id.banknamesid);
             if (accname != null) {

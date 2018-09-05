@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +71,8 @@ public class CollectionActivity extends AppCompatActivity implements ListViewCli
     CollectionBanksAdapter adapter;
     ArrayList<Bank> arrayList = new ArrayList<>();
 
+    @BindView(R.id.spinnerContainer)
+    LinearLayout spinnercont;
     @BindView(R.id.tv_coll_customer)
     TextView tvCustomer;
     @BindView(R.id.tv_coll_date)
@@ -91,6 +94,7 @@ public class CollectionActivity extends AppCompatActivity implements ListViewCli
         setContentView(R.layout.activity_collection);
 
         ButterKnife.bind(this);
+        spinnercont.setVisibility(View.GONE);
         SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
         branchID = sharedPreferences.getString(BRANCH_ID_PREF, "");
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,collectionMode);
@@ -101,13 +105,14 @@ public class CollectionActivity extends AppCompatActivity implements ListViewCli
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String data = collectionMode[i];
                 if (data.equalsIgnoreCase("Bank")){
+                    spinnercont.setVisibility(View.VISIBLE);
                     collection.setPaymentMode("Bank");
                     getBankList();
                 } else if (data.equalsIgnoreCase("cash")){
                     collection.setPaymentMode("cash");
-                    collection.setAccountId(0);
+                    banklist_spinner.setAdapter(null);
                     arrayList.clear();
-
+                    spinnercont.setVisibility(View.GONE);
                     //nothing to do
                 }
             }
@@ -239,14 +244,15 @@ public class CollectionActivity extends AppCompatActivity implements ListViewCli
                                 bank.setAccounts_type(accounts_type);
                                 arrayList.add(bank);
 
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Log.e("TAG","error : "+ e);
                         }
                         adapter = new CollectionBanksAdapter(CollectionActivity.this, android.R.layout.simple_spinner_item, arrayList);
-                        banklist_spinner.setAdapter(adapter); // Set the custom adapter to the spinner
-                        // You can create an anonymous listener to handle the event when is selected an spinner item
+                        adapter.notifyDataSetChanged();
+                        banklist_spinner.setAdapter(adapter);
                         banklist_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                             @Override
@@ -305,7 +311,12 @@ public class CollectionActivity extends AppCompatActivity implements ListViewCli
     public boolean validate() {
         boolean isValid = true;
         List<Invoice> invoiceList = collection.getInvoiceList();
-        if (invoiceList.size() == 0) {
+        /*if (collection.getInvoiceList().size() == 0 ) {
+            showSnackbar(tvCustomer, "No Invoice Item found to submit.");
+            return false;
+        }
+*/
+        if (invoiceList == null){
             showSnackbar(tvCustomer, "No Invoice Item found to submit.");
             return false;
         }

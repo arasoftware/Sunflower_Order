@@ -52,7 +52,6 @@
                 android:id="@+id/spinner_coll_payment_mode"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-
                 android:layout_marginTop="@dimen/item_spacing"
                 android:background="@drawable/spinnerback"
                 android:dropDownSelector="@drawable/spinner_item_selector"
@@ -61,16 +60,30 @@
 
             </Spinner>
 
-            <Spinner
-                android:layout_marginTop="10dp"
-                android:id="@+id/spinnerBankList"
-                android:popupBackground="@color/deep_purple"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:background="@drawable/spinnerback"
-                android:dropDownSelector="@drawable/spinner_item_selector"
+                android:orientation="vertical"
+                android:id="@+id/spinnerContainer"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
 
-            </Spinner>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="select an account"
+                    android:padding="1dp"
+                    android:layout_height="wrap_content" />
+                <Spinner
+
+                    android:id="@+id/spinnerBankList"
+                    android:popupBackground="@color/deep_purple"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/spinnerback"
+                    android:dropDownSelector="@drawable/spinner_item_selector"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,7 +94,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/coll_item_list_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="350dp"
                     android:padding="5dp"
                     android:scrollbars="vertical" />
             </LinearLayout>
