@@ -9,9 +9,11 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ara.sunflowerorder.R;
 import com.ara.sunflowerorder.models.OrderItem;
@@ -137,6 +139,12 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
                     orderPriceLayout.setError("cannot be zero or empty");
                     return;
                 }
+                int total = (int) (price * quantity);
+                int temp = 0;
+                temp = total+temp;
+                Log.e("TAG", "total quantity  :  " + temp);
+                Toast.makeText(getContext(), "value : " + temp, Toast.LENGTH_SHORT).show();
+                orderItem.setTotalAmount(temp);
                 orderItem.setPrice(price);
                 orderItem.setQuantity(quantity);
                 mListener.onFragmentInteraction(orderItem);

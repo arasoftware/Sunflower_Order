@@ -74,6 +74,11 @@ public class SalesOrder extends AppCompatActivity {
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
+        OrderItem orderItem = new OrderItem();
+        if (orderItem.getTotalAmount() != 0 ){
+            Log.e("TAG","total : "+orderItem.getTotalAmount());
+        }
+
         mRecyclerView.setHasFixedSize(true);
         salesOrderModel.setItems(new ArrayList<OrderItem>());
 
@@ -120,6 +125,7 @@ public class SalesOrder extends AppCompatActivity {
                     List<OrderItem> orderItems = OrderItem.fromJsonArray(json);
                     int index=salesOrderModel.getItems().size()-1;
                     salesOrderModel.getItems().addAll(orderItems);
+
                     total_amount_tv.setText(formatPrice(salesOrderModel.getTotal()));
 
                     mAdapter.notifyItemRangeChanged(index,orderItems.size());

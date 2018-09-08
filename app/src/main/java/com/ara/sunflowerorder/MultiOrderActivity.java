@@ -115,7 +115,6 @@ public class MultiOrderActivity extends AppCompatActivity implements OrderFragme
         orderItem.setPrice(product.getPrice());
         product.setBrand(brand);
         orderItem.setProduct(product);
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         OrderFragment orderFragment = OrderFragment.newInstance(orderItem);
 

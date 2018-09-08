@@ -27,7 +27,9 @@ public class DeliveryReport {
     private String product_name;
     @SerializedName("dc_entry_product_details_qty")
     private int quantity;
+    @SerializedName("accept_qty")
     private int accept;
+    @SerializedName("rejected_qty")
     private int reject;
 
     public int getAccept() {

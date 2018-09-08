@@ -38,6 +38,8 @@ public class Collection {
 
     private String date;
     private List<Invoice> invoiceList;
+
+    @SerializedName("totalAmount")
     private double totalAmount;
 
     public User getUser() {

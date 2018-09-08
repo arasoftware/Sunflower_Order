@@ -61,8 +61,8 @@ import static com.ara.sunflowerorder.utils.AppConstants.showSnackbar;
 
 public class CollectionActivity extends AppCompatActivity implements ListViewClickListener {
 
-    String collectionMode[] = {"cash","Bank"};
-    String paymentmode[ ] = {"Please select payment mode"};
+    String collectionMode[] = {"cash", "Bank"};
+    String paymentmode[] = {"Please select payment mode"};
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     Customer customer;
@@ -97,18 +97,18 @@ public class CollectionActivity extends AppCompatActivity implements ListViewCli
         spinnercont.setVisibility(View.GONE);
         SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
         branchID = sharedPreferences.getString(BRANCH_ID_PREF, "");
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,collectionMode);
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, collectionMode);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPaymentMode.setAdapter(aa);
         spinnerPaymentMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String data = collectionMode[i];
-                if (data.equalsIgnoreCase("Bank")){
+                if (data.equalsIgnoreCase("Bank")) {
                     spinnercont.setVisibility(View.VISIBLE);
                     collection.setPaymentMode("Bank");
                     getBankList();
-                } else if (data.equalsIgnoreCase("cash")){
+                } else if (data.equalsIgnoreCase("cash")) {
                     collection.setPaymentMode("cash");
                     banklist_spinner.setAdapter(null);
                     arrayList.clear();
@@ -228,11 +228,11 @@ public class CollectionActivity extends AppCompatActivity implements ListViewCli
                     showSnackbar(tvCustomer, response.getMesssage());
                 else {
                     {
-                        Log.e("LOG","Bank List : "+ response.getMesssage());
+                        Log.e("LOG", "Bank List : " + response.getMesssage());
                         try {
                             JSONArray jsonArray = new JSONArray(response.getMesssage());
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject jsonObject= jsonArray.getJSONObject(i);
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 String accounts_id = jsonObject.getString("accounts_id");
                                 String accounts_name = jsonObject.getString("accounts_name");
                                 String accounts_group_id = jsonObject.getString("accounts_group_id");
@@ -248,7 +248,7 @@ public class CollectionActivity extends AppCompatActivity implements ListViewCli
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.e("TAG","error : "+ e);
+                            Log.e("TAG", "error : " + e);
                         }
                         adapter = new CollectionBanksAdapter(CollectionActivity.this, android.R.layout.simple_spinner_item, arrayList);
                         adapter.notifyDataSetChanged();
@@ -263,11 +263,13 @@ public class CollectionActivity extends AppCompatActivity implements ListViewCli
 
                                 // Here you can do the action you want to...
                                 collection.setAccountId(Integer.parseInt(bank.getAccounts_id()));
-                                Log.e("TAG","message : "+Integer.parseInt(bank.getAccounts_id()));
+                                Log.e("TAG", "message : " + Integer.parseInt(bank.getAccounts_id()));
 
                             }
+
                             @Override
-                            public void onNothingSelected(AdapterView<?> adapter) {  }
+                            public void onNothingSelected(AdapterView<?> adapter) {
+                            }
                         });
 
                     }
@@ -278,19 +280,19 @@ public class CollectionActivity extends AppCompatActivity implements ListViewCli
     }
 
 
-
     @OnClick(R.id.btn_submit_coll)
     public void onSubmit() {
         if (!validate())
             return;
 
-        Log.e("LOG_TAG", "json response : " + collection.toJson());
+
         final HttpRequest httpRequest = new HttpRequest(getCollectionSubmitURL(), HttpRequest.POST);
         collection.setUser(CurrentUser);
-
+        Double totAmount = Double.valueOf(tvTotalAmount.getText().toString());
+        collection.setTotalAmount(totAmount);
         collection.setDate(tvTodayDate.getText().toString());
         httpRequest.addParam("data", collection.toJson());
-        Log.i("Collection Submit", collection.toJson());
+        Log.e("LOG_TAG", "json response : " + collection.toJson());
         progressDialog = showProgressBar(this, "Submitting..");
         new HttpCaller() {
             @Override
@@ -316,7 +318,7 @@ public class CollectionActivity extends AppCompatActivity implements ListViewCli
             return false;
         }
 */
-        if (invoiceList == null){
+        if (invoiceList == null) {
             showSnackbar(tvCustomer, "No Invoice Item found to submit.");
             return false;
         }
