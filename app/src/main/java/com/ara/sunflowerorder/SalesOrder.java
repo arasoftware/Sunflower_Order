@@ -39,6 +39,7 @@ import static com.ara.sunflowerorder.utils.AppConstants.ORDER_DATE_REQUEST;
 import static com.ara.sunflowerorder.utils.AppConstants.REQUEST_CODE;
 import static com.ara.sunflowerorder.utils.AppConstants.SALES_ORDER;
 import static com.ara.sunflowerorder.utils.AppConstants.SEARCH_CUSTOMER_REQUEST;
+import static com.ara.sunflowerorder.utils.AppConstants.SalesOrderList;
 import static com.ara.sunflowerorder.utils.AppConstants.formatPrice;
 import static com.ara.sunflowerorder.utils.AppConstants.getSalesOrderSubmitURL;
 import static com.ara.sunflowerorder.utils.AppConstants.showProgressBar;
@@ -74,10 +75,6 @@ public class SalesOrder extends AppCompatActivity {
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        OrderItem orderItem = new OrderItem();
-        if (orderItem.getTotalAmount() != 0 ){
-            Log.e("TAG","total : "+orderItem.getTotalAmount());
-        }
 
         mRecyclerView.setHasFixedSize(true);
         salesOrderModel.setItems(new ArrayList<OrderItem>());
@@ -121,14 +118,17 @@ public class SalesOrder extends AppCompatActivity {
             case ADD_ITEM_REQUEST:
                 if (resultCode == RESULT_OK) {
                     json = data.getStringExtra(EXTRA_ADD_ITEM);
-
+                    int total = 0;
                     List<OrderItem> orderItems = OrderItem.fromJsonArray(json);
-                    int index=salesOrderModel.getItems().size()-1;
+                    int index = salesOrderModel.getItems().size() - 1;
                     salesOrderModel.getItems().addAll(orderItems);
 
-                    total_amount_tv.setText(formatPrice(salesOrderModel.getTotal()));
+                    for (int j=0;j<salesOrderModel.getItems().size();j++){
+                       total = total + salesOrderModel.getItems().get(j).getTotalAmount();
 
-                    mAdapter.notifyItemRangeChanged(index,orderItems.size());
+                    }
+                    total_amount_tv.setText(formatPrice(total));
+                    mAdapter.notifyItemRangeChanged(index, orderItems.size());
                     if (salesOrderModel.getItems().size() >= 1)
                         mRecyclerView.setVisibility(View.VISIBLE);
                 }
@@ -169,15 +169,17 @@ public class SalesOrder extends AppCompatActivity {
         salesOrderModel.setPaymentMode(spinnerPaymentMode.getSelectedItem().toString());
         salesOrderModel.setOrderDate(order_date_tv.getText().toString());
         salesOrderModel.setDeliveryDate(delivery_date_tv.getText().toString());
+        salesOrderModel.setTotal(Double.parseDouble(total_amount_tv.getText().toString()));
         final HttpRequest httpRequest = new HttpRequest(getSalesOrderSubmitURL(), HttpRequest.POST);
         salesOrderModel.setUserId(CurrentUser);
         httpRequest.addParam("data", salesOrderModel.toJson());
-        Log.i("Sales Order Submit", salesOrderModel.toJson());
+        Log.e("Sales Order Submit","------------------------------------"+ salesOrderModel.toJson());
         progressDialog = showProgressBar(this, "Submitting");
         new HttpCaller() {
             @Override
             public void onResponse(HttpResponse response) {
                 progressDialog.dismiss();
+                Log.e("TAG","reposens ----------12---"+response.getMesssage());
                 if (response.getStatus() == HttpResponse.ERROR)
                     showSnackbar(response.getMesssage());
                 else {
@@ -210,7 +212,7 @@ public class SalesOrder extends AppCompatActivity {
     @OnClick(R.id.btn_order_add_item)
     public void onAddItemClick(View view) {
         Intent addItemIntent = new Intent(this, com.ara.sunflowerorder.MultiOrderActivity.class);
-        addItemIntent.putExtra(SALES_ORDER,salesOrderModel.toJson());
+        addItemIntent.putExtra(SALES_ORDER, salesOrderModel.toJson());
         startActivityForResult(addItemIntent, ADD_ITEM_REQUEST);
     }
 

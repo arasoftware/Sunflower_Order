@@ -123,6 +123,7 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+
         int id = v.getId();
         switch (id) {
             case R.id.btn_frag_cancel:
@@ -140,11 +141,7 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
                     return;
                 }
                 int total = (int) (price * quantity);
-                int temp = 0;
-                temp = total+temp;
-                Log.e("TAG", "total quantity  :  " + temp);
-                Toast.makeText(getContext(), "value : " + temp, Toast.LENGTH_SHORT).show();
-                orderItem.setTotalAmount(temp);
+                orderItem.setTotalAmount(total);
                 orderItem.setPrice(price);
                 orderItem.setQuantity(quantity);
                 mListener.onFragmentInteraction(orderItem);
@@ -153,6 +150,10 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
         }
     }
 
+    private double getTotal(Double price,int quantity){
+
+        return price*quantity;
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
